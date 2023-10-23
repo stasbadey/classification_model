@@ -53,7 +53,7 @@ model.add(MaxPooling2D())
 model.add(Conv2D(32, (3, 3), 1, activation='relu'))
 model.add(MaxPooling2D())
 
-model.add(Conv2D(16, (3, 3), 1, activation='relu'))
+model.add(Conv2D(32, (3, 3), 1, activation='relu'))
 model.add(MaxPooling2D())
 
 model.add(Flatten())
@@ -91,4 +91,4 @@ for batch in test.as_numpy_iterator():
     re.update_state(y, yhat)
     acc.update_state(y, yhat)
 
-model.save(os.path.join('models', 'experimental.h5'))
+model.save(os.path.join('models', 'classificator.h5'))
