@@ -53,14 +53,14 @@ model.add(MaxPooling2D())
 model.add(Conv2D(32, (3, 3), 1, activation='relu'))
 model.add(MaxPooling2D())
 
-model.add(Conv2D(32, (3, 3), 1, activation='relu'))
+model.add(Conv2D(16, (3, 3), 1, activation='relu'))
 model.add(MaxPooling2D())
 
 model.add(Flatten())
 model.add(Dense(256, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))
 
-model.compile(optimizer='adam', loss=tf.losses.BinaryCrossentropy(), metrics=['accuracy'])
+model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=1e-3), loss=tf.losses.BinaryCrossentropy(), metrics=['accuracy'])
 
 logdir = 'logs'
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=logdir)
