@@ -47,20 +47,15 @@ test = data.skip(train_size + val_size).take(test_size)
 
 model = Sequential()
 
-model.add(Conv2D(16, (3, 3), 1,  activation='relu', input_shape=(256, 256, 3)))
-model.add(MaxPooling2D())
-
-model.add(Conv2D(32, (3, 3), 1, activation='relu'))
-model.add(MaxPooling2D())
-
-model.add(Conv2D(16, (3, 3), 1, activation='relu'))
-model.add(MaxPooling2D())
+model.add(Conv2D(filters=10, kernel_size=(4, 4), padding='same', input_shape=(256, 256, 3), activation='relu'))
+model.add(Conv2D(filters=10, kernel_size=(3, 3), padding='same', input_shape=(64, 64, 8), activation='relu'))
+model.add(Conv2D(filters=10, kernel_size=(2, 2), padding='same', input_shape=(16, 16, 16), activation='relu'))
 
 model.add(Flatten())
-model.add(Dense(256, activation='relu'))
-model.add(Dense(1, activation='sigmoid'))
+model.add(Dense(2, activation='softmax'))
 
-model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=1e-3), loss=tf.losses.BinaryCrossentropy(), metrics=['accuracy'])
+model.compile(loss='categorical_crossentropy', optimizer=Adam(lr=0.0003), metrics=['accuracy'])
+
 
 logdir = 'logs'
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=logdir)

@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 
-model = load_model(os.path.join('models', 'lowclassifier.h5'))
+model = load_model(os.path.join('models', 'experimental.h5'))
 
 while True:
     print('Input name of test image:')
