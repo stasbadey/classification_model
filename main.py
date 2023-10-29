@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 
-model = load_model(os.path.join('models', 'experimental.h5'))
+model = load_model(os.path.join('models', 'anotherclassifier.h5'))
 
 while True:
     print('Input name of test image:')
@@ -22,7 +22,7 @@ while True:
     yhat = model.predict(np.expand_dims(resize/255, 0))
     print(yhat)
 
-    if yhat > 0.7:
+    if yhat[0][0] > 0.7:
         print(f'Predicted class is Normal')
     else:
         print(f'Predicted class is Defected')
