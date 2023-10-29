@@ -1,25 +1,17 @@
-import numpy as np # linear algebra
-import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+import numpy as np
+import pandas as pd
 import os
-import cv2
 from keras.utils import np_utils
-from keras.datasets import mnist
-#kerasでCNN構築
 from keras.models import Sequential
-from keras.layers import Conv2D, MaxPooling2D
-from keras.layers import Activation, Dropout, Flatten, Dense
+from keras.layers import Conv2D
+from keras.layers import Flatten, Dense
 from keras.optimizers import Adam
 import glob
 from pathlib import Path
 
-
-
-
-
 root_dir = "data/"
 train_csv_filepath = root_dir + "train.csv"
 
-# ファイルの読み込み
 train_df = pd.read_csv(train_csv_filepath)
 
 resize_w = 256
@@ -29,22 +21,17 @@ channel = 3
 import cv2
 
 
-# 画像が大きいと計算が遅いため、リサイズ縮小
 def resize(tmp_image):
     return cv2.resize(tmp_image, (resize_h, resize_w))
 
 
-# 4次元配列化()　
 def to_4d(tmp_image):
     return tmp_image.reshape(1, resize_h, resize_w, channel)
 
-
-# 256段階の色調を0.0~1.0にする
 def normalize(tmp_image):
     return tmp_image / 255.0
 
 
-# 画像の前処理付きロード
 def load_preprocessed_image(image_filepath):
     tmp_image = cv2.imread(image_filepath)
     tmp_image = resize(tmp_image)
@@ -64,7 +51,6 @@ for fn in train_df['filename']:
 
 anomaly_flags = np.array([flag for flag in train_df['anomaly']])
 
-# 確認
 anomaly_flags = np_utils.to_categorical(anomaly_flags, 2)
 
 model = Sequential()
