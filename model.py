@@ -28,6 +28,7 @@ def resize(tmp_image):
 def to_4d(tmp_image):
     return tmp_image.reshape(1, resize_h, resize_w, channel)
 
+
 def normalize(tmp_image):
     return tmp_image / 255.0
 
@@ -50,7 +51,6 @@ for fn in train_df['filename']:
         images = np.vstack((images, tmp_image))
 
 anomaly_flags = np.array([flag for flag in train_df['anomaly']])
-
 anomaly_flags = np_utils.to_categorical(anomaly_flags, 2)
 
 model = Sequential()
@@ -63,7 +63,6 @@ model.add(Flatten())
 model.add(Dense(2, activation='softmax'))
 
 model.compile(loss='categorical_crossentropy', optimizer=Adam(lr=0.0003), metrics=['accuracy'])
-
 
 X_test = images[:100]
 y_test = anomaly_flags[:100]
